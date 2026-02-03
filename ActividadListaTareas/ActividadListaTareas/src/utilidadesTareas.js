@@ -1,12 +1,12 @@
-export { pintarTareas };
+export { pintarTareas, addTarea, añadirTarea, borrarTarea, actualizarTarea, comprobarFrom };
 import { post } from "./peticiones.js";
+import { deletE } from "./peticiones.js";
 
 function pintarTareas(tareas){
     let section = document.querySelector("#listaTareas");
     let ol = document.createElement("ol");
     ol.setAttribute("id", "lista")
-    let butAñadir = document.querySelector("#btnAddTask")
-    butAñadir.addEventListener("click", añadirTarea)
+    
     tareas.forEach(e => {
         addTarea(ol, e)
     })
@@ -19,25 +19,30 @@ function addTarea(ol, tarea){
     li.setAttribute("id", tarea.id)
     let button = document.createElement("button")
     button.textContent = "Borrar tarea";
-    button.setAttribute("class", "boton")
+    button.setAttribute("class", "btnBorrarTarea")
     button.addEventListener("click", borrarTarea)
     li.append(button)
     ol.append(li)
 }
 
 function añadirTarea(){
-    //post jsonserver
     let ol = document.querySelector("#lista");
     let tarea = {
         nombre:prompt("Dime el nombre de la tarea:"),
         acabada:false,
-        id_user:1//sessionStorage
+        id_user: sessionStorage.getItem("id")
     }
     
     post("/tareas", tarea, (e)=>{addTarea(ol, e)}, (error)=>{alert("No se ha podido insertar la tarea por: " + error)})
 }
 
 function borrarTarea(e){
-    //delete jsonserver
+    deletE("/tareas/"+e.target.parentElement.id, ()=>{alert("Tarea borrada")}, (error)=>{alert("No se ha podido borrar la tarea por: " + error)})
     e.target.parentElement.remove()
 }
+
+function actualizarTarea(){
+    //put jsonserver
+}
+
+
