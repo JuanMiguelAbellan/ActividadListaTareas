@@ -1,14 +1,30 @@
-import { validarRegistro } from "./utilidadesUsusaros.js";
-import { registroUsuario } from "./utilidadesUsusaros.js";
+import { validarForm, registroUsuario } from "./utilidadesRegistro.js";
 
 document.addEventListener("DOMContentLoaded", listeners);
 
 function listeners(){
-    let button = document.querySelector("#btnRegistrarUsuario");
-    button.addEventListener("click", registro);
+    let form = document.querySelector("#formRegistro");
+    form.addEventListener("submit", registro);
+
+    nombre.addEventListener("blur", ()=>{
+        if(nombre.value.length < 3 || nombre.value[0] !== nombre.value[0].toUpperCase()){
+            nombre.setAttribute("class", "resaltado");
+        }else{
+            nombre.removeAttribute("class", "resaltado");
+        }
+    })
+
+    apellidos.addEventListener("blur", ()=>{
+        if(apellidos.value.length < 3 || apellidos.value[0] !== apellidos.value[0].toUpperCase()){
+            apellidos.setAttribute("class", "resaltado");
+        }else{
+            apellidos.removeAttribute("class", "resaltado");
+        }
+    })
 }
 
-function registro(){
+function registro(e){
+    e.preventDefault();
     let nombre = document.querySelector("#nombre").value;
     let apellidos = document.querySelector("#apellidos").value;
     let email = document.querySelector("#email").value;
@@ -28,13 +44,15 @@ function registro(){
         condiciones: condiciones,
         news: news
     };
-    console.log(data);
     
 
-    let mensaje = validarRegistro(data);
-    if(mensaje === ""){
-        registroUsuario(data);
+    if(condiciones){
+        if(validarForm(data)){
+            registroUsuario(data);
+        }else{
+            alert("Formulario no válido");
+        }
     }else{
-        alert(mensaje);
+        alert("Debe aceptar las condiciones");
     }
 }
