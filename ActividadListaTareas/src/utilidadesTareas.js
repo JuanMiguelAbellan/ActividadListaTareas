@@ -40,13 +40,13 @@ function añadirTarea(){
         id_user: sessionStorage.getItem("id")
     }
     
-    post("/tareas", tarea, (e)=>{addTarea(ol, e)}, (error)=>{alert("No se ha podido insertar la tarea por: " + error)})
+    post("/tareas", tarea, (e)=>{addTarea(ol, e)}, (error)=>{console.log("No se ha podido insertar la tarea por: " + error)})
 }
 
 function borrarTarea(e){
     const id = e.target.parentElement.id;
     
-    deletE("/tareas/"+id, ()=>{e.target.parentElement.remove()}, (e)=>{alert("No se ha podido borrar por que: " +e)})
+    deletE("/tareas/"+id, ()=>{e.target.parentElement.remove()}, (e)=>{console.log("No se ha podido borrar por que: " +e)})
 }
 
 function actualizarTarea(e){
@@ -55,7 +55,7 @@ function actualizarTarea(e){
     patch("/tareas/"+id, {acabada:e.target.checked}, (res)=>{
         checkbox.checked = res.acabada
     },(error)=>{
-        alert("No se ha podido actualizar por: " + error);
+        console.log("No se ha podido actualizar por: " + error);
         checkbox.checked = !e.target.checked
     })
 }

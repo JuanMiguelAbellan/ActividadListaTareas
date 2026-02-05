@@ -1,7 +1,6 @@
-import { get, post } from "./peticiones.js";
+import { get } from "./peticiones.js";
 
 export function pedirUsusarios(username, password){
-    console.log(username.value, password.value);
     
     get("/usuarios"+"?email="+username.value, (e)=>{
         if(e[0].email === username.value && e[0].password === password.value){
@@ -9,7 +8,7 @@ export function pedirUsusarios(username, password){
             window.location.assign("./tareas.html");
         }
     }, (e)=>{
-        alert("Usuario y/o contraseña incorrectos" + e);
+        document.querySelector("header").after(document.createElement("h2").textContent = " Usuario y/o contraseña incorrectos " + e);
     })
 }
 

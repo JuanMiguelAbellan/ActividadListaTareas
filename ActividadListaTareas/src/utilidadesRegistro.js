@@ -7,38 +7,39 @@ export function validarForm(data){
     let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
     if(!emailRegex.test(data.email)){
+         document.querySelector("#errorEmail").textContent = "Debe tener un formato valido\n"
         validado=false;
     }else{
         get("/usuarios", "?email="+data.email, (e)=>{
             if(e.length>0){
-                alert("El email ya está registrado\n");
+                document.querySelector("#errorEmail").textContent = "El email ya está registrado\n";
             }
         }, (e)=>{
-            alert("Error al comprobar el email\n");
+            document.querySelector("#errorEmail").textContent = "Error al comprobar el email\n";
         })
     }
     if(data.nombre.length<3 || data.nombre[0] !== data.nombre[0].toUpperCase()){
-        alert("El nombre debe tener al menos 3 caracteres y empezar por mayúscula\n");
+        document.querySelector("#errorNombre").textContent = "El nombre debe tener al menos 3 caracteres y empezar por mayúscula\n"
         validado=false;
     }
-    else if(data.apellidos.length<3 || data.apellidos[0] !== data.apellidos[0].toUpperCase()){
-        alert("Los apellidos deben tener al menos 3 caracteres y empezar por mayúscula\n");
+    if(data.apellidos.length<3 || data.apellidos[0] !== data.apellidos[0].toUpperCase()){
+        document.querySelector("#errorApellidos").textContent = "Los apellidos deben tener al menos 3 caracteres y empezar por mayúscula\n"
         validado=false;
     }
-    else if(data.email != data.repetirEmail){
-        alert("Los emails no coinciden\n");
+    if(data.email != data.repetirEmail){
+        document.querySelector("#errorRepetirEmail").textContent = "Los emails no coinciden\n"
         validado=false;
     }
-    else if(!passwordRegex.test(data.password)){
-        alert("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial\n");
+    if(!passwordRegex.test(data.password)){
+        document.querySelector("#errorPassword").textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial\n"
         validado=false;
     }
-    else if(data.password != data.repetirPassword){
-        alert("Las contraseñas no coinciden\n");
+    if(data.password != data.repetirPassword){
+        document.querySelector("#errorRepetirPassword").textContent = "Las contraseñas no coinciden\n"
         validado=false;
     }
-    else if(!data.condiciones){
-        alert("Debe aceptar las condiciones\n");
+    if(!data.condiciones){
+        document.querySelector("#errorCondiciones").textContent = "Debes aceptar las condiciones\n"
         validado=false;
     }
     return validado;
@@ -49,6 +50,6 @@ export function registroUsuario(data){
         sessionStorage.setItem("id", e.id)
         document.location.assign("tareas.html")
     }, (e)=>{
-        alert("Algo ha salido mal por que " + e)
+        document.querySelector("main").after(document.createElement("h2").textContent ="Algo ha salido mal por que " + e)
     })
 }

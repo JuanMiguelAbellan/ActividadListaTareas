@@ -49,10 +49,8 @@ function registro(e){
     if(condiciones){
         if(validarForm(data)){
             registroUsuario(data);
-        }else{
-            alert("Formulario no válido");
         }
     }else{
-        alert("Debe aceptar las condiciones");
+        document.querySelector("#errorCondiciones").textContent = "Debes aceptar las condiciones\n"
     }
 }

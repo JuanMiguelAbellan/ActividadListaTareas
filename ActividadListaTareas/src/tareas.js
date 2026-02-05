@@ -1,5 +1,5 @@
 import { get } from "./peticiones.js";
-import { pintarTareas, borrarTarea, añadirTarea } from "./utilidadesTareas.js";
+import { pintarTareas, añadirTarea } from "./utilidadesTareas.js";
 
 document.addEventListener("DOMContentLoaded", listeners)
 
