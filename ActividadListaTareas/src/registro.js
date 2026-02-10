@@ -7,19 +7,21 @@ function listeners(){
     form.addEventListener("submit", registro);
 
     nombre.addEventListener("blur", ()=>{
-        if(nombre.value.length < 3 || nombre.value[0] !== nombre.value[0].toUpperCase()){
-            nombre.setAttribute("class", "resaltado");
-        }else{
-            nombre.removeAttribute("class", "resaltado");
-        }
+        nombre.classList.toggle("resaltado", nombre.value.length < 3 || nombre.value[0] !== nombre.value[0].toUpperCase())
+        // if(nombre.value.length < 3 || nombre.value[0] !== nombre.value[0].toUpperCase()){
+        //     nombre.setAttribute("class", "resaltado");
+        // }else{
+        //     nombre.removeAttribute("class", "resaltado");
+        // }
     })
 
     apellidos.addEventListener("blur", ()=>{
-        if(apellidos.value.length < 3 || apellidos.value[0] !== apellidos.value[0].toUpperCase()){
-            apellidos.setAttribute("class", "resaltado");
-        }else{
-            apellidos.removeAttribute("class", "resaltado");
-        }
+        apellidos.classList.toggle("resaltado",apellidos.value.length < 3 || apellidos.value[0] !== apellidos.value[0].toUpperCase())
+        // if(apellidos.value.length < 3 || apellidos.value[0] !== apellidos.value[0].toUpperCase()){
+        //     apellidos.setAttribute("class", "resaltado");
+        // }else{
+        //     apellidos.removeAttribute("class", "resaltado");
+        // }
     })
 }
 
